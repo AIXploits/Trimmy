@@ -2,6 +2,12 @@
 
 # Changelog
 
+## 0.2.0 — 2025-11-16
+- Sparkle auto-updates (Check for Updates…, auto-check toggle) with GitHub feed and signed appcast.
+- Launch-at-login toggle (SMAppService) persisted and applied at startup.
+- Clickable About panel (GitHub link) showing version/build.
+- Strict concurrency + Swift Testing; lint/format configs aligned with other menu-bar apps.
+
 ## 0.1.3 — 2025-11-16
 - Launch-at-login toggle (SMAppService) with persisted setting.
 - Sparkle auto-updates (Check for Updates…, auto-check toggle, feed to GitHub Releases).
