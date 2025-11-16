@@ -1,6 +1,8 @@
 # Changelog
 
-# Changelog
+## 0.2.1 — 2025-11-16
+- Moved the last-trim preview to sit directly beneath “Trim Clipboard Now” for a faster read.
+- Bumped bundle version/build (0.2.1/5).
 
 ## 0.2.0 — 2025-11-16
 - Sparkle auto-updates (Check for Updates…, auto-check toggle) with GitHub feed and signed appcast.

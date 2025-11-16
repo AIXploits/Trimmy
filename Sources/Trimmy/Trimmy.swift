@@ -260,6 +260,10 @@ struct MenuContentView: View {
             Button("Trim Clipboard Now") {
                 self.monitor.trimClipboardIfNeeded(force: true)
             }
+            // Show the last trim preview immediately below the action for quick glance.
+            Text(self.lastText)
+                .foregroundStyle(.secondary)
+                .font(.caption)
             Divider()
             Menu("Settings") {
                 Menu("Aggressiveness: \(self.settings.aggressiveness.titleShort)") {
@@ -277,6 +281,9 @@ struct MenuContentView: View {
                 }
                 Toggle("Keep blank lines", isOn: self.$settings.preserveBlankLines)
                 Toggle("Launch at login", isOn: self.$settings.launchAtLogin)
+                Button("Trim Clipboard Now") {
+                    self.monitor.trimClipboardIfNeeded(force: true)
+                }
                 Toggle("Automatically check for updates", isOn: self.autoUpdateBinding)
                 Button("Check for Updates…") {
                     self.updater.checkForUpdates(nil)
@@ -285,9 +292,6 @@ struct MenuContentView: View {
             Button("About Trimmy") {
                 self.showAbout()
             }
-            Text(self.settingsSummary)
-                .foregroundStyle(.secondary)
-                .font(.caption)
         }
         .padding(.vertical, 6)
         .padding(.horizontal, 10)

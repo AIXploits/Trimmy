@@ -3,13 +3,13 @@
     <channel>
         <title>Trimmy</title>
         <item>
-            <title>0.2.0</title>
-            <pubDate>Sun, 16 Nov 2025 21:19:43 +0100</pubDate>
+            <title>0.2.1</title>
+            <pubDate>Sun, 16 Nov 2025 21:57:00 +0100</pubDate>
             <link>https://raw.githubusercontent.com/steipete/Trimmy/main/appcast.xml</link>
-            <sparkle:version>4</sparkle:version>
-            <sparkle:shortVersionString>0.2.0</sparkle:shortVersionString>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://raw.githubusercontent.com/steipete/Trimmy/main/Trimmy-0.2.0.zip" length="2173146" type="application/octet-stream" sparkle:edSignature="hvNw0DX6TZAo4A5sPSxWvhlwJm17YoyhVFS/vjvSnCLzOlU9xXolwGz7EtocqN2R1e+XcrkNoBUhA+QXuU1JCw=="/>
+            <enclosure url="https://raw.githubusercontent.com/steipete/Trimmy/main/Trimmy-0.2.1.zip" length="2173406" type="application/octet-stream" sparkle:edSignature="VtckNN7/MB2lcZAa5FZJXnWOS2EqI4n3sN0jS5pHBTwK4666kzchyRMVGzJVFH160g+J+Cws+drtsR1TqU/TAA=="/>
         </item>
     </channel>
 </rss>
