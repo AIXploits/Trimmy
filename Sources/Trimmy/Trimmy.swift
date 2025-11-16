@@ -312,13 +312,13 @@ struct MenuContentView: View {
         let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
         let versionString = build.isEmpty ? version : "\(version) (\(build))"
         let credits = NSMutableAttributedString(string: "Peter Steinberger — MIT License\n")
-        let link = NSAttributedString(
-            string: "https://github.com/steipete/Trimmy",
-            attributes: [
-                .link: URL(string: "https://github.com/steipete/Trimmy") as Any,
-                .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
-            ])
-        credits.append(link)
+        credits.append(self.makeLink("GitHub", urlString: "https://github.com/steipete/Trimmy"))
+        credits.append(NSAttributedString(string: "\n"))
+        credits.append(self.makeLink("Website", urlString: "https://steipete.me"))
+        credits.append(NSAttributedString(string: "\n"))
+        credits.append(self.makeLink("Twitter", urlString: "https://twitter.com/steipete"))
+        credits.append(NSAttributedString(string: "\n"))
+        credits.append(self.makeLink("Email", urlString: "mailto:peter@steipete.me"))
 
         let options: [NSApplication.AboutPanelOptionKey: Any] = [
             .applicationName: "Trimmy",
@@ -335,6 +335,14 @@ struct MenuContentView: View {
         Binding(
             get: { self.updater.updater.automaticallyChecksForUpdates },
             set: { self.updater.updater.automaticallyChecksForUpdates = $0 })
+    }
+
+    private func makeLink(_ title: String, urlString: String) -> NSAttributedString {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .link: URL(string: urlString) as Any,
+            .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+        ]
+        return NSAttributedString(string: title, attributes: attributes)
     }
 }
 
