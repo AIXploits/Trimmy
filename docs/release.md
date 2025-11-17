@@ -51,7 +51,7 @@ git tag v0.2.2
 
 ## Checklist (quick)
 - [ ] Update versions (Package scripts, About text, CHANGELOG)
-- [ ] `swiftformat`, `swiftlint`, `swift test`
+- [ ] `swiftformat`, `swiftlint`, `swift test` (ensure zero warnings/errors)
 - [ ] `./Scripts/build_icon.sh` if icon changed
 - [ ] `./Scripts/sign-and-notarize.sh`
 - [ ] Generate Sparkle appcast with private key
