@@ -1,4 +1,5 @@
 import AppKit
+import MenuBarExtraAccess
 import Security
 import SwiftUI
 
@@ -9,6 +10,8 @@ struct TrimmyApp: App {
     @StateObject private var settings = AppSettings()
     @StateObject private var monitor: ClipboardMonitor
     @StateObject private var hotkeyManager: HotkeyManager
+    @State private var isMenuPresented = false
+    @State private var statusItem: NSStatusItem?
     private let startupDiagnostics = StartupDiagnostics()
 
     init() {
@@ -47,9 +50,22 @@ struct TrimmyApp: App {
                 }
                 .scenePadding()
         }
+        .menuBarExtraAccess(isPresented: self.$isMenuPresented) { item in
+            self.statusItem = item
+            self.applyStatusItemAppearance()
+        }
+        .onChange(of: self.settings.autoTrimEnabled) { _, _ in
+            self.applyStatusItemAppearance()
+        }
         .defaultSize(width: SettingsTab.windowWidth, height: SettingsTab.windowHeight)
         .windowResizability(.contentSize)
         .windowStyle(.titleBar)
+    }
+}
+
+private extension TrimmyApp {
+    func applyStatusItemAppearance() {
+        self.statusItem?.button?.appearsDisabled = !self.settings.autoTrimEnabled
     }
 }
 

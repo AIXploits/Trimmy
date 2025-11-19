@@ -11,6 +11,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.8.1"),
         .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", from: "1.16.0"),
+        .package(url: "https://github.com/orchetect/MenuBarExtraAccess", from: "1.0.0"),
     ],
     targets: [
         .executableTarget(
@@ -18,6 +19,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Sparkle", package: "Sparkle"),
                 .product(name: "KeyboardShortcuts", package: "KeyboardShortcuts"),
+                .product(name: "MenuBarExtraAccess", package: "MenuBarExtraAccess"),
             ],
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
