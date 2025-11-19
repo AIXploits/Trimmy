@@ -15,9 +15,10 @@ struct MenuContentView: View {
             Button("Trim Clipboard Now") {
                 self.monitor.trimClipboardIfNeeded(force: true)
             }
-            Button("Type Trimmed Text Now") {
+            Button("Type Clipboard Text Now") {
                 _ = self.hotkeyManager.typeTrimmedTextNow()
             }
+            .disabled(!self.hotkeyManager.hasClipboardText)
             Text(self.lastText)
                 .foregroundStyle(.secondary)
                 .font(.caption)

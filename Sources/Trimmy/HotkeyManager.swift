@@ -14,6 +14,10 @@ final class HotkeyManager: ObservableObject {
     private var handlerRegistered = false
     private var failureAlertShown = false
 
+    var hasClipboardText: Bool {
+        self.monitor.clipboardText() != nil
+    }
+
     init(settings: AppSettings, monitor: ClipboardMonitor) {
         self.settings = settings
         self.monitor = monitor
