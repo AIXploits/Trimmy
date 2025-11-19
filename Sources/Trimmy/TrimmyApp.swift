@@ -1,3 +1,4 @@
+import AppKit
 import Security
 import SwiftUI
 
@@ -30,10 +31,11 @@ struct TrimmyApp: App {
             Divider()
             Button("Quit") { NSApplication.shared.terminate(nil) }
         } label: {
-            Label("Trimmy", systemImage: "scissors")
-                .symbolRenderingMode(.hierarchical)
-                .foregroundStyle(self.settings.autoTrimEnabled ? .primary : .secondary)
-                .opacity(self.settings.autoTrimEnabled ? 1.0 : 0.45)
+            Label {
+                Text("Trimmy")
+            } icon: {
+                Image(nsImage: self.menuBarIcon(enabled: self.settings.autoTrimEnabled))
+            }
         }
         Settings {
             SettingsView(
@@ -48,6 +50,18 @@ struct TrimmyApp: App {
         .defaultSize(width: SettingsTab.windowWidth, height: SettingsTab.windowHeight)
         .windowResizability(.contentSize)
         .windowStyle(.titleBar)
+    }
+}
+
+private extension TrimmyApp {
+    func menuBarIcon(enabled: Bool) -> NSImage {
+        let color = enabled ? NSColor.labelColor : NSColor.disabledControlTextColor
+        let configuration = NSImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+            .applying(.init(paletteColors: [color]))
+        let image = NSImage(systemSymbolName: "scissors", accessibilityDescription: "Trimmy")?
+            .withSymbolConfiguration(configuration)
+        image?.isTemplate = false
+        return image ?? NSImage()
     }
 }
 
