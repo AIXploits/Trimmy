@@ -31,6 +31,7 @@ Gotchas fixed:
 - Sparkle needs signing for framework, Autoupdate, Updater, XPCs (Downloader/Installer) or notarization fails.
 - Use `--timestamp` and `--deep` when signing the app to avoid invalid signature errors.
 - Avoid `unzip` when installing locally; prefer `ditto -x -k Trimmy-<ver>.zip /Applications` to prevent AppleDouble `._*` files that can break the signature.
+- Manual sanity check before upload: `find Trimmy.app -name '._*'` should return nothing, then `spctl --assess --type execute --verbose Trimmy.app` and `codesign --verify --deep --strict --verbose Trimmy.app` should pass on the packaged bundle.
 
 ## Appcast (Sparkle)
 After notarization:
@@ -68,6 +69,7 @@ git tag v0.2.2
 - [ ] After publishing, open the GitHub release page and visually confirm bullets render correctly (no literal `\n`, no duplicated/merged entries); fix via “Edit release” if anything is off.
 - [ ] Keep an older signed build in `/Applications/Trimmy.app` (e.g., previous version) to manually verify Sparkle delta/full update to the new release.
 - [ ] For Sparkle verification: if replacing `/Applications/Trimmy.app`, first quit Trimmy, then replace the app bundle, and relaunch from `/Applications`. If a previous version is already installed there, leave it and just use it to test the update path.
+- [ ] Manual Gatekeeper sanity: after packaging, `find Trimmy.app -name '._*'` is empty, `spctl --assess --type execute --verbose Trimmy.app` and `codesign --verify --deep --strict --verbose Trimmy.app` succeed
 - **Definition of “done” for a release:** all of the above are complete, the appcast/enclosure link resolves with the right signature, and a previous public build can update to the new one via Sparkle. Anything short of that is not a finished release.
 
 ## Troubleshooting
