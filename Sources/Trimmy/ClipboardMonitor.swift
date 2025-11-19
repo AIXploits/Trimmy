@@ -61,14 +61,14 @@ final class ClipboardMonitor: ObservableObject {
         }
     }
 
-    private func readTextFromPasteboard() -> String? {
-        if self.pasteboard.types?.contains(self.trimmyMarker) == true { return nil }
+    private func readTextFromPasteboard(ignoreMarker: Bool = false) -> String? {
+        if !ignoreMarker, self.pasteboard.types?.contains(self.trimmyMarker) == true { return nil }
         return self.pasteboard.string(forType: .string)
     }
 
     /// Exposes the current clipboard string (nil if empty or Trimmy marker).
     func clipboardText() -> String? {
-        self.readTextFromPasteboard()
+        self.readTextFromPasteboard(ignoreMarker: true)
     }
 
     private func writeTrimmed(_ text: String) {
@@ -83,7 +83,7 @@ final class ClipboardMonitor: ObservableObject {
     }
 
     func trimmedClipboardText(force: Bool = false) -> String? {
-        guard let text = self.readTextFromPasteboard() else { return nil }
+        guard let text = self.readTextFromPasteboard(ignoreMarker: force) else { return nil }
         guard self.settings.autoTrimEnabled || force else { return nil }
 
         var currentText = text
