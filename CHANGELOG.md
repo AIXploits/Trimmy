@@ -5,6 +5,10 @@
 - Sparkle updater now auto-disables for unsigned/dev runs (mirrors CodexBar) to avoid updater error dialogs during development.
 - Debug builds now use bundle ID `com.steipete.trimmy.debug` and ship with Sparkle feed disabled, so Accessibility/Input Monitoring and updater prompts stay isolated from release builds.
 - Large-paste confirmation shows a selectable preview (up to 1000 lines, 50k chars) and confirms >20 lines before typing.
+- Preferences got the full SwiftUI treatment: toolbar tabs (General, Aggressiveness, Shortcuts, About), window auto-resizing per tab, and richer About content with dimmed update controls for debug builds.
+- Menu bar entry mirrors the new Settings window—actions for Trim Clipboard, Type Clipboard Text, Settings…, About Trimmy, plus a multi-line “Last” preview instead of the old submenu.
+- Aggressiveness previews now ship with a more illustrative “Low” example and unit tests that lock behavior for all three levels.
+- Menu bar icon dims automatically when Auto-Trim is disabled so it’s obvious the service is paused.
 
 ## 0.2.4 — 2025-11-17
 - Last trim preview now middle-truncates long text so the menu stays compact while showing both start and end of the command.
