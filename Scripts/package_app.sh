@@ -16,14 +16,23 @@ if [[ -f "$ICON_SOURCE" ]]; then
   iconutil --convert icns --output "$ICON_TARGET" "$ICON_SOURCE"
 fi
 
-cat > "$APP/Contents/Info.plist" <<'PLIST'
+BUNDLE_ID="com.steipete.trimmy"
+FEED_URL="https://raw.githubusercontent.com/steipete/Trimmy/main/appcast.xml"
+AUTO_CHECKS=true
+if [[ "${CONF,,}" == "debug" ]]; then
+  BUNDLE_ID="com.steipete.trimmy.debug"
+  FEED_URL=""
+  AUTO_CHECKS=false
+fi
+
+cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key><string>Trimmy</string>
     <key>CFBundleDisplayName</key><string>Trimmy</string>
-    <key>CFBundleIdentifier</key><string>com.steipete.trimmy</string>
+    <key>CFBundleIdentifier</key><string>${BUNDLE_ID}</string>
     <key>CFBundleExecutable</key><string>Trimmy</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleShortVersionString</key><string>0.2.4</string>
@@ -32,9 +41,9 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>LSUIElement</key><true/>
     <key>CFBundleIconFile</key><string>Icon</string>
     <key>NSHumanReadableCopyright</key><string>© 2025 Peter Steinberger. MIT License.</string>
-    <key>SUFeedURL</key><string>https://raw.githubusercontent.com/steipete/Trimmy/main/appcast.xml</string>
+    <key>SUFeedURL</key><string>${FEED_URL}</string>
     <key>SUPublicEDKey</key><string>AGCY8w5vHirVfGGDGc8Szc5iuOqupZSh9pMj/Qs67XI=</string>
-    <key>SUEnableAutomaticChecks</key><true/>
+    <key>SUEnableAutomaticChecks</key><${AUTO_CHECKS}/>
 </dict>
 </plist>
 PLIST
