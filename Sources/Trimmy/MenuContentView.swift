@@ -121,7 +121,11 @@ private extension MenuContentView {
             self.handleTypeClipboard()
         }
         .applyKeyboardShortcut(self.typeKeyboardShortcut)
-        .disabled(!self.hotkeyManager.hasClipboardText)
+        .disabled(!self.hasClipboardText)
+    }
+
+    var hasClipboardText: Bool {
+        self.monitor.clipboardText() != nil
     }
 
     var typeKeyboardShortcut: KeyboardShortcut? {
