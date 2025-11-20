@@ -79,6 +79,8 @@ final class ClipboardMonitor: ObservableObject {
             return self.normalizeLineEndings(direct)
         }
 
+        guard self.settings.usePasteboardFallbacks else { return nil }
+
         // Fall back to scanning pasteboard items for any text-like representation.
         let preferredTypes: [NSPasteboard.PasteboardType] = [
             .init("public.utf8-plain-text"),

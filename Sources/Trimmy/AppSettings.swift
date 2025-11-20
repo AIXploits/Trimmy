@@ -50,6 +50,7 @@ final class AppSettings: ObservableObject {
     @AppStorage("preserveBlankLines") var preserveBlankLines: Bool = false
     @AppStorage("autoTrimEnabled") var autoTrimEnabled: Bool = true
     @AppStorage("removeBoxDrawing") var removeBoxDrawing: Bool = true
+    @AppStorage("usePasteboardFallbacks") var usePasteboardFallbacks: Bool = false
     @AppStorage("launchAtLogin") var launchAtLogin: Bool = false {
         didSet { LaunchAtLoginManager.setEnabled(self.launchAtLogin) }
     }

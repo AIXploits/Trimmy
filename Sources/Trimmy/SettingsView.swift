@@ -103,6 +103,11 @@ struct GeneralSettingsPane: View {
                 subtitle: "Strip prompt-style box borders before trimming.",
                 binding: self.$settings.removeBoxDrawing)
 
+            PreferenceToggleRow(
+                title: "Use extra clipboard fallbacks",
+                subtitle: "Try RTF and public text types when plain text is missing (helps apps that don’t expose UTF-8).",
+                binding: self.$settings.usePasteboardFallbacks)
+
             Divider()
                 .padding(.vertical, 4)
 
