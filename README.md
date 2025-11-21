@@ -47,9 +47,9 @@ Get the precompiled binary from [Releases](https://github.com/steipete/Trimmy/re
 - Clipboard writes tag themselves with `com.steipete.trimmy` to avoid loops.
 
 ## Related
-- CodexBar 🟦🟩 keep Codex and Claude usage visible from the menu bar. Download at [codexbar.app](https://codexbar.app).
+- CodexBar 🟦🟩 “May your tokens never run out—keep agent limits in view.” Download at [codexbar.app](https://codexbar.app).
 - Trimmy ✂️ get the latest build at [trimmy.app](https://trimmy.app).
-- MCPorter 🧳 [mcporter.dev](https://mcporter.dev) — TypeScript runtime, CLI, and code-generation toolkit for the Model Context Protocol.
+- MCPorter 🧳 [mcporter.dev](https://mcporter.dev) — TypeScript runtime/CLI/codegen toolkit for the Model Context Protocol.
 
 ## License
 MIT
