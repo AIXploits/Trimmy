@@ -151,14 +151,7 @@ extension MenuContentView {
 
     private func statsSuffix(for text: String?) -> String {
         guard let text else { return "" }
-        let chars = text.count
-        if chars >= 1000 {
-            let k = Double(chars) / 1000.0
-            let formatted = k >= 10 ? String(format: "%.0fk", k) : String(format: "%.1fk", k)
-            return " (\(formatted) chars)"
-        } else {
-            return " (\(chars) chars)"
-        }
+        return PreviewMetrics.charCountSuffix(count: text.count)
     }
 }
 
