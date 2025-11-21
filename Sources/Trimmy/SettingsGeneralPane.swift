@@ -27,6 +27,13 @@ struct GeneralSettingsPane: View {
                 subtitle: "Try RTF and public text types when plain text is missing (helps apps that don’t expose UTF-8).",
                 binding: self.$settings.usePasteboardFallbacks)
 
+            #if DEBUG
+            PreferenceToggleRow(
+                title: "Enable debug tools",
+                subtitle: "Show the Debug tab for sample previews and dev-only controls.",
+                binding: self.$settings.debugPaneEnabled)
+            #endif
+
             Divider()
                 .padding(.vertical, 4)
 

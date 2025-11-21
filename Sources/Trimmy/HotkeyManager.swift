@@ -88,6 +88,11 @@ final class HotkeyManager: ObservableObject {
                 .init(.t, modifiers: [.command, .option]),
                 for: .pasteTrimmed)
         }
+        if KeyboardShortcuts.getShortcut(for: .pasteOriginal) == nil {
+            KeyboardShortcuts.setShortcut(
+                .init(.t, modifiers: [.command, .option, .shift]),
+                for: .pasteOriginal)
+        }
         // No default for auto-trim toggle; user can opt in via Settings.
     }
 

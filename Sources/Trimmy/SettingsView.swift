@@ -23,9 +23,11 @@ struct SettingsView: View {
                 .tag(SettingsTab.shortcuts)
 
             #if DEBUG
-            DebugSettingsPane(settings: self.settings, monitor: self.monitor)
-                .tabItem { Label("Debug", systemImage: "ant.fill") }
-                .tag(SettingsTab.debug)
+            if self.settings.debugPaneEnabled {
+                DebugSettingsPane(settings: self.settings, monitor: self.monitor)
+                    .tabItem { Label("Debug", systemImage: "ant.fill") }
+                    .tag(SettingsTab.debug)
+            }
             #endif
 
             AboutPane(updater: self.updater)
@@ -62,8 +64,8 @@ enum SettingsTab: String, Hashable, CaseIterable, Codable {
     case debug
     #endif
 
-    static let windowWidth: CGFloat = 400
-    static let windowHeight: CGFloat = 396
+    static let windowWidth: CGFloat = 440
+    static let windowHeight: CGFloat = 400
 }
 
 extension Notification.Name {
