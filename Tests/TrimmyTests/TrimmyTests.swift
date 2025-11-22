@@ -134,6 +134,78 @@ struct TrimmyTests {
     }
 
     @Test
+    func normalDoesNotFlattenSwiftSnippet() {
+        let settings = AppSettings()
+        settings.aggressiveness = .normal
+        let detector = CommandDetector(settings: settings)
+        let swiftSnippet = """
+        // MARK: Shape
+
+        public extension Shape where Self == AnyShape {
+            static var roundedContainer: some Shape {
+                AnyShape(
+                    .squircle(cornerRadius: .roundedCornerRadius)
+                )
+            }
+        }
+        """
+        #expect(detector.transformIfCommand(swiftSnippet) == nil)
+
+        let forced = detector.transformIfCommand(swiftSnippet, aggressivenessOverride: .high)
+        #expect(forced != nil)
+        #expect(forced?.contains("AnyShape") == true)
+        #expect(forced != swiftSnippet, "forced: \(forced ?? "nil")")
+    }
+
+    @Test
+    func lowSkipsCodeButHighOverrideAllowsIt() {
+        let settings = AppSettings()
+        settings.aggressiveness = .low
+        let detector = CommandDetector(settings: settings)
+        let code = """
+        extension Foo {
+            func bar() {
+                print("hi")
+            }
+        }
+        """
+        #expect(detector.transformIfCommand(code) == nil)
+        let forced = detector.transformIfCommand(code, aggressivenessOverride: .high)
+        #expect(forced != nil)
+        #expect(forced?.contains("\n") == false)
+    }
+
+    @Test
+    func normalSkipsStructDefinition() {
+        let settings = AppSettings()
+        settings.aggressiveness = .normal
+        let detector = CommandDetector(settings: settings)
+        let code = """
+        struct Widget {
+            let radius: Double
+            var color: String
+        }
+        """
+        #expect(detector.transformIfCommand(code) == nil)
+    }
+
+    @Test
+    func highOverrideFlattensStructDefinition() {
+        let settings = AppSettings()
+        settings.aggressiveness = .low
+        let detector = CommandDetector(settings: settings)
+        let code = """
+        struct Gadget {
+            let id: UUID
+            func render() { print(id) }
+        }
+        """
+        let forced = detector.transformIfCommand(code, aggressivenessOverride: .high)
+        #expect(forced != nil)
+        #expect(forced?.contains("\n") == false)
+    }
+
+    @Test
     func preserveBlankLinesRoundTrip() {
         let settings = AppSettings()
         settings.aggressiveness = .high

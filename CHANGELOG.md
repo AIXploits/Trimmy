@@ -1,7 +1,10 @@
 # Changelog
 
 ## Unreleased
-- (no changes yet)
+- Hardened command detection (#4): Low/Normal now skip when multi-line text looks like source code (brace + language keywords across Swift/JS/Go/Rust/Java/C#/Python, etc.) unless strong command cues are present. High/manual override still flattens on demand, so “Paste Trimmed” keeps working for power users.
+
+## 0.4.1 — 2025-11-22 (unreleased)
+- Tweaked command detection scoring (#4) so code snippets (e.g., Swift with `// MARK`) are no longer flattened at Low/Normal aggressiveness while keeping the High override available when you explicitly invoke it.
 
 ## 0.4.0 — 2025-11-21
 - Added “Paste Trimmed” action + global hotkey that trims on-the-fly (High aggressiveness), pastes, and restores your clipboard.

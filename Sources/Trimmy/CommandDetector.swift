@@ -79,15 +79,29 @@ struct CommandDetector {
         guard lines.count >= 2 else { return nil }
         if lines.count > 10 { return nil }
 
+        let aggressiveness = aggressivenessOverride ?? self.settings.aggressiveness
+
+        let strongCommandSignals = text.contains("\\\n")
+            || text.range(of: #"[|&]{1,2}"#, options: .regularExpression) != nil
+            || text.range(of: #"(^|\n)\s*\$"#, options: .regularExpression) != nil
+            || text.range(of: #"[A-Za-z0-9._~-]+/[A-Za-z0-9._~-]+"#, options: .regularExpression) != nil
+
+        if aggressiveness != .high,
+           aggressivenessOverride != .high,
+           self.isLikelySourceCode(text),
+           !strongCommandSignals
+        {
+            return nil
+        }
+
         var score = 0
         if text.contains("\\\n") { score += 1 }
         if text.range(of: #"[|&]{1,2}"#, options: .regularExpression) != nil { score += 1 }
         if text.range(of: #"(^|\n)\s*\$"#, options: .regularExpression) != nil { score += 1 }
         if lines.allSatisfy(self.isLikelyCommandLine(_:)) { score += 1 }
         if text.range(of: #"(?m)^\s*(sudo\s+)?[A-Za-z0-9./~_-]+"#, options: .regularExpression) != nil { score += 1 }
-        if text.range(of: #"[-/]"#, options: .regularExpression) != nil { score += 1 }
+        if text.range(of: #"[A-Za-z0-9._~-]+/[A-Za-z0-9._~-]+"#, options: .regularExpression) != nil { score += 1 }
 
-        let aggressiveness = aggressivenessOverride ?? self.settings.aggressiveness
         guard score >= aggressiveness.scoreThreshold else { return nil }
 
         let flattened = self.flatten(text)
@@ -100,6 +114,14 @@ struct CommandDetector {
         if line.last == "." { return false }
         let pattern = #"^(sudo\s+)?[A-Za-z0-9./~_-]+(?:\s+|\z)"#
         return line.range(of: pattern, options: .regularExpression) != nil
+    }
+
+    private func isLikelySourceCode(_ text: String) -> Bool {
+        let hasBraces = text.contains("{") || text.contains("}") || text.lowercased().contains("begin")
+        let keywordPattern =
+            #"(?m)^\s*(import|package|namespace|using|template|class|struct|enum|extension|protocol|interface|func|def|fn|let|var|public|private|internal|open|protected|if|for|while)\b"#
+        let hasKeywords = text.range(of: keywordPattern, options: .regularExpression) != nil
+        return hasBraces && hasKeywords
     }
 
     private func flatten(_ text: String) -> String {
